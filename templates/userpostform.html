@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+POST Method Form
+{% endblock %}
+
+{% block content %}
+
+
+<style>
+.userform-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.userform {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-submit {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-submit:hover {
+  background-color: #0056b3;
+}
+
+.sum-result {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #e7f5ff;
+  border: 1px solid #91d5ff;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  color: #0050b3;
+}
+
+</style>
+
+<div id="main" class="wrapper style2">
+	<div class="title">POST Method Form</div>
+</div>
+
+<div class="userform-container">
+  <div class="userform">
+    <form class="contact-form" method="POST">
+      {% csrf_token %}
+      <div class="form-group-container">
+        <div class="form-group">
+          <label for="Value1" class="form-label">Value 1</label>
+          <input id="Value1" name="Value1" class="form-input" placeholder="Value 1" type="text" value="{{ request.GET.Value1|default:'' }}" />
+        </div>
+        <div class="form-group">
+          <label for="Value2" class="form-label">Value 2</label>
+          <input id="Value2" name="Value2" class="form-input" placeholder="Value 2" type="text" value="{{ request.GET.Value2|default:'' }}" />
+        </div>
+      </div>
+      <button class="form-submit" type="submit">Submit</button>
+    </form>
+
+    {% if sum != None %}
+      <div class="sum-result">
+        <label>{{n1}} + {{n2}} = {{ sum }}</label>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock  %}		

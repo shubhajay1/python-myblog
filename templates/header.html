@@ -1,0 +1,39 @@
+
+			<!-- Header -->
+				<section id="header" class="wrapper">
+
+					<!-- Logo -->
+						<div id="logo">
+							<h1><a href="../">My Blog</a></h1>
+							<p>A practice project</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								{% comment %} {{request.path}} class="{% if request.path == '/' %}active current{% endif %}" {% endcomment %}
+								<li><a href="{% url 'home' %}">Home</a></li>
+								<li>
+									<a href="#">More</a>
+									<ul>
+										<li><a href="{% url 'userform' %}">User Get Form</a></li>
+										<li><a href="{% url 'userpostform' %}">User Post Form</a></li>
+										<li>
+											<a href="#">More here</a>
+											<ul>
+												<li><a href="../course/">Course</a></li>
+												<li><a href="../course/2">Dynamic url</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li class="{% if request.path == '/left-sidebar/' %}active current{% endif %}" ><a href="{% url 'leftSidebar' %}">Left Sidebar</a></li>
+								<li class="{% if request.path == '/right-sidebar.html' %}active current{% endif %}" ><a href="{% url 'rightSidebar' %}">Right Sidebar</a></li>
+								<li class="{% if request.path == '/no-sidebar/' %}active current{% endif %}" ><a href="{% url 'noSidebar' %}">No Sidebar</a></li>
+                                <li class="{% if request.path == '/about-us/' %}active current{% endif %}" ><a href="{% url 'aboutUs' %}">About Us</a></li>
+								{% comment %} 2nd options for set herf url and set active {% endcomment %}
+								{% url 'contactUs' as contacUrl %}
+                                <li class="{% if request.path == contacUrl %}active current{% endif %}" ><a href="{{contacUrl}}">Contacts</a></li>
+							</ul>
+						</nav>
+				</section>

@@ -1,0 +1,67 @@
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    /* stack rows vertically */
+    align-items: center;
+    gap: 10px;
+}
+
+/* Row of inputs */
+.custom-form .input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 600px;
+    /* optional limit */
+}
+
+/* Inputs and select boxes */
+.custom-form input,
+.custom-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Make text inputs grow but keep select small */
+.custom-form .input-row input {
+    flex: 1;
+}
+
+.custom-form .input-row select {
+    width: 60px;
+    /* reduced width */
+    text-align: center;
+    text-align-last: center;
+    /* center text in select */
+}
+
+/* Calculate button styling */
+.custom-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.custom-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Result box */
+#result {
+    margin-top: 15px;
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+}

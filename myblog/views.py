@@ -1,5 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from .forms import usersFormsModel, emiCalculater
+from . import emi
+import operator
 
 
 # def homePage(request):
@@ -36,7 +39,83 @@ def contactUs(request):
 
 
 def aboutUs(request):
-    return render(request, 'about-us.html')
+
+    if request.method == "GET":
+        resultData = request.GET.get('finalresult')
+
+    return render(request, 'about-us.html', {'resultData': resultData})
+
+
+def submitForm(request):
+
+    try:
+        n1 = request.POST.get('num1')
+        n2 = request.POST.get('num2')
+        meg = request.POST.get('num3')
+        email = request.POST.get('email')
+
+        return HttpResponse("<div>Welcome {} {}</div><div>email : {}</div><p>{}</p>".format(n1, n2, email, meg))
+    except:
+        pass
+
+
+def emicalculater(request):
+
+    fn = emiCalculater()
+    data = {'form': fn}
+    if request.method == 'GET':
+        try:
+            ResultData = request.GET.get('emipermonth')
+            data = {
+                'form': fn,
+                'ResultData': ResultData
+            }
+            print(ResultData)
+            return render(request, 'emicalculater.html', data)
+        except:
+            pass
+
+    return render(request, 'emicalculater.html', data)
+
+
+def SubmitEmi(request):
+
+    resultData = {}
+    if request.method == 'POST':
+        resultData = emi.emicalculation(request)
+
+    return resultData
+
+
+def calculater(request):
+    data = {}
+    ops = {
+        '+': operator.add,
+        '-': operator.sub,
+        '*': operator.mul,
+        '/': operator.truediv
+    }
+
+    if request.method == 'POST':
+        try:
+            n1 = int(request.POST.get('n1'))
+            n2 = int(request.POST.get('n2'))
+            opt = request.POST.get('opt')
+
+            if opt in ops:
+                try:
+                    result = ops[opt](n1, n2)
+                except ZeroDivisionError:
+                    result = 'Error: Division by zero'
+            else:
+                result = 'Invalid operator'
+
+            data['resultData'] = result
+
+        except ValueError:
+            data['resultData'] = 'Error: Invalid input'
+
+    return render(request, 'calculater.html', data)
 
 
 def UserForm(request):
@@ -54,6 +133,8 @@ def UserForm(request):
 
 
 def userpostform(request):
+
+    finalvalue = 0
     data = {}
     try:
         # n1 = int(request.POST['Value1'])
@@ -61,14 +142,44 @@ def userpostform(request):
 
         n1 = int(request.POST.get('Value1'))
         n2 = int(request.POST.get('Value2'))
+        finalvalue = n1 + n2
         data = {
             'n1': n1,
             'n2': n2,
-            'sum': n1 + n2
+            'sum': finalvalue
         }
+
+        url = "/about-us/?finalresult={}".format(finalvalue)
+
+        return HttpResponseRedirect(url)
     except:
         pass
     return render(request, 'userpostform.html', data)
+
+
+def userformmodel(request):
+
+    finalvalue = 0
+    fn = usersFormsModel()
+    data = {'form': fn}
+    try:
+
+        n1 = int(request.POST.get('Value1'))
+        n2 = int(request.POST.get('Value2'))
+        finalvalue = n1 + n2
+        data = {
+            'form': fn,
+            'n1': n1,
+            'n2': n2,
+            'sum': finalvalue
+        }
+
+        url = "/about-us/?finalresult={}".format(finalvalue)
+
+        return HttpResponseRedirect(url)
+    except:
+        pass
+    return render(request, 'userformmodel.html', data)
 
 
 def course(request):

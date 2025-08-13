@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+EMI Calculater
+{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/emicalculater.css">
+{% endblock %}
+{% block content %}
+
+
+<div id="main" class="wrapper style2" style='padding:1px;'>
+	<div class="title">EMI Calculater</div>
+</div>
+
+<div class="userform-container">
+  <div class="userform">
+    <form id="emiForm" class="contact-form" method="POST" action="{% url 'SubmitEmi' %}" >
+      {% csrf_token %}
+      
+        <div>
+            <div>
+                <label for="totalPrice">Total Price </label> {{ form.totallPrice }}
+            </div>
+            <div>
+                <label for="loanamount">Loan Amount </label> {{ form.loanAmount }}
+            </div>
+            <div>
+                <label for="downpayment">Down Payment</label>
+                <span id="downpaymentValue">100000</span>
+                {{ form.downPayment }}
+            </div>
+            <div>
+                <label for="interestRange">Rate of interest (p.a)</label>
+                <span id="interestValue">9.1%</span>
+                {{ form.interest_rate }}
+            </div>
+            <div>
+                <label for="interestRange">Tenure</label>
+                {{ form.tenure}}
+            </div>
+        </div>    
+        {% comment %} <button class="form-submit" type="submit">Submit</button> {% endcomment %}
+    </form>
+    <div class="sum-result">
+        <img src="/static/images/pattern-15508_256.gif" alt="" id="loader-img"/>
+        <label id="emiResult-label" > EMI per Month : <span id="emiResult"> {{ ResultData | default:"" }}</span></label>
+    </div>
+  </div>
+</div>
+
+
+{% endblock  %}		
+
+
+{% block extra_js %}
+        <script src="/static/js/emi.js"></script>
+{% endblock %}

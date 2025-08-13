@@ -1,0 +1,127 @@
+/* Main container */
+.userform-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 15px;
+}
+
+/* Inner form box */
+.userform {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Form labels */
+.userform label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Form fields spacing */
+.userform div {
+    margin-bottom: 20px;
+}
+
+/* Number, select, and text inputs */
+.userform input[type="number"],
+.userform select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Slider base style */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+/* Slider track fill (updated via JS) */
+.slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 3px;
+}
+
+.slider::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Slider thumb */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: teal;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    margin-top: -6px;
+    transition: background 0.3s ease;
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: teal;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+/* Slider value display */
+#interestValue,
+#downpaymentValue {
+    font-weight: bold;
+    margin-left: 10px;
+    color: teal;
+}
+
+/* Submit button */
+.form-submit {
+    background-color: teal;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.form-submit:hover {
+    background-color: #007777;
+}
+
+/* EMI result box */
+.sum-result {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f0f9f9;
+    border-left: 5px solid teal;
+    font-weight: 600;
+    color: #006666;
+}
+
+#loader-img {
+    display: none;
+}

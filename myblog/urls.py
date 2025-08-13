@@ -28,6 +28,11 @@ urlpatterns = [
     path('contact-us/', views.contactUs, name="contactUs"),
     path('UserForm/', views.UserForm, name="userform"),
     path('userpostform/', views.userpostform, name="userpostform"),
+    path('userformmodel/', views.userformmodel, name="userformmodel"),
+    path('submitForm/', views.submitForm, name='submitForm'),
+    path('calculater/', views.calculater, name='calculater'),
+    path('emicalculater/', views.emicalculater, name='emicalculater'),
+    path('SubmitEmi/', views.SubmitEmi, name='SubmitEmi'),
     path('course/', views.course),
     path('course/<courseId>', views.courseDetails)
 ]

@@ -6,7 +6,9 @@
 				<div id="main" class="wrapper style2">
 					<div class="title">About Us</div>
 					<div class="container">
-
+						{% if resultData %}
+							Total sum : {{ resultData }}
+						{% endif %}
 						<!-- Content -->
 							<div id="content">
 								<article class="box post">

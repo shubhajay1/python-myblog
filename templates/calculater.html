@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Calculater{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/calculater.css">
+{% endblock %}
+{% block content %}
+
+
+			<!-- Main -->
+				<div id="main" class="wrapper style2">
+					<div class="title">Calculater</div>
+					<div class="container">
+
+						<!-- Content -->
+							<div id="content">
+                                <form id="calcForm" class="custom-form" method="POST">
+                                    {% csrf_token %}
+                                    <div class="input-row">
+                                        <input type="number" name="n1" id="num1" placeholder="Enter first number" required value="{{ request.POST.n1|default:'' }}">
+                                        <select id="operator" name="opt">
+                                            <option value="+" {% if request.POST.opt == '+' %}selected{% endif %}>+</option>
+                                            <option value="-" {% if request.POST.opt == '-' %}selected{% endif %}>−</option>
+                                            <option value="*" {% if request.POST.opt == '*' %}selected{% endif %}>×</option>
+                                            <option value="/" {% if request.POST.opt == '/' %}selected{% endif %}>÷</option>
+                                        </select>
+                                        <input type="number" name="n2" id="num2" placeholder="Enter second number" required value="{{ request.POST.n2|default:'' }}">
+                                    </div>
+                                    <button type="submit">CALCULATE</button>
+                                    <input type="text" id="result" value='{{ resultData }}' placeholder="Result" disabled>
+                                </form>
+                            </div>
+
+
+					</div>
+				</div>
+
+			
+{% endblock  %}			

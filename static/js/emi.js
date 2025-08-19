@@ -37,8 +37,8 @@ function updateSliderRate(inputRange) {
 
 // Down payment background update
 function updateSliderLoan(inputRange) {
-    const min = inputRange.min || 10000;
-    const max = inputRange.max || 10000000;
+    const min = inputRange.min || 0;
+    const max = inputRange.max || 100;
     const value = inputRange.value;
 
     const percent = ((value - min) / (max - min)) * 100;
@@ -102,11 +102,20 @@ interestRange.addEventListener('change', function () {
 
 totalPrice.addEventListener('blur', function () {
     $('#downpaymentRange').prop('disabled', true);
+    var CurrentTotalPrice = Number($("#id_totallPrice").val());
+    var downpayvalue = Number($("#downpaymentRange").val()) - 1000;
+    if (downpayvalue > CurrentTotalPrice) {
+        console.log('CurrentTotalPrice:' + CurrentTotalPrice);
+        console.log('downpayvalue:' + downpayvalue);
+        $("#downpaymentRange").val(0).trigger("input").trigger("change");
+        $("#downpaymentValue").text("0");
+        $("#downpaymentRange").css("background", `linear-gradient(to right, teal 0%, rgb(221, 221, 221) 0%)`);
+    }
     $("#loader-img").show();
     setTimeout(function () {
-        var LoanAmount = getGetLoanAmount($("#id_totallPrice").val());
+        var LoanAmount = getGetLoanAmount(CurrentTotalPrice);
         $("#id_loanAmount").val(LoanAmount).trigger("input").trigger("change");
-        loanmaxmin(LoanAmount);
+        loanmaxmin(CurrentTotalPrice);
         setTimeout(function () {
             getEmiValue();
         }, 3000);
@@ -114,16 +123,15 @@ totalPrice.addEventListener('blur', function () {
 
 });
 
-loanValue.addEventListener('blur', function () {
-    totalLoan = $("#id_loanAmount").val();
-    if (totalLoan > 0) {
-        // loanmaxmin(totalLoan);
-        $("#loader-img").show();
-        setTimeout(function () {
-            getEmiValue();
-        }, 3000);
-    }
-});
+// loanValue.addEventListener('blur', function () {
+//     totalLoan = $("#id_loanAmount").val();
+//     if (totalLoan > 0) {
+//         $("#loader-img").show();
+//         setTimeout(function () {
+//             getEmiValue();
+//         }, 3000);
+//     }
+// });
 
 tenureValue.addEventListener('change', function () {
     if ($("#id_loanAmount").val() > 0) {
@@ -137,10 +145,12 @@ tenureValue.addEventListener('change', function () {
 
 function loanmaxmin(totalLoan) {
     totalLoan = totalLoan - 1000;
+    console.log('totalLoan:' + totalLoan);
     $('#downpaymentRange').attr('max', totalLoan);
-    setps = totalLoan / 100;
-    $('#downpaymentRange').attr('step', setps);
+    setps = totalLoan / 1000;
+    $('#downpaymentRange').attr('step', parseInt(setps));
     $('#downpaymentRange').prop('disabled', false);
+    updateSliderLoan(downpaymentRange);
 }
 
 // Initial load

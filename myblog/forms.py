@@ -18,8 +18,8 @@ class emiCalculater(forms.Form):
         label="Total Price", widget=forms.NumberInput(attrs={'value': '0'}))
     loanAmount = forms.IntegerField(
         label="Loan Amount", widget=forms.NumberInput(attrs={'value': '0', 'readonly': 'readonly'}))
-    downPayment = forms.IntegerField(label="Down Payment", min_value=0, max_value=10000000, widget=forms.NumberInput(
-        attrs={'type': 'range', 'step': '10000', 'value': '0', 'class': 'slider', 'id': 'downpaymentRange'}))
+    downPayment = forms.IntegerField(label="Down Payment", min_value=0, max_value=0, widget=forms.NumberInput(
+        attrs={'type': 'range', 'step': '0', 'value': '0', 'class': 'slider', 'id': 'downpaymentRange'}))
     interest_rate = forms.FloatField(label="Rate of interest (p.a)", min_value=0, max_value=20, widget=forms.NumberInput(
         attrs={'type': 'range', 'step': '0.1', 'value': '9.1', 'class': 'slider', 'id': 'interestRange'}))
     TENURE_CHOICES = [(i, f"{i} Year{'s' if i > 1 else ''}")

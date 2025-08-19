@@ -4,12 +4,10 @@ from django.http import JsonResponse
 def emicalculation(request):
     data = {}
     try:
-        LoanAmount = float(request.POST.get('loanAmount', 0))
-        downPayment = float(request.POST.get('downPayment', 0))
+        principal = float(request.POST.get('loanAmount', 0))
         interest_rate = float(request.POST.get('interest_rate', 0))
         tenure = int(request.POST.get('tenure', 0))
 
-        principal = LoanAmount - downPayment
         monthly_rate = interest_rate / 12 / 100
         months = tenure * 12
 
@@ -24,11 +22,13 @@ def emicalculation(request):
                 ((1 + monthly_rate) ** months - 1)
 
         emi = round(emi, 2)
+
+        print(emi)
         data['resultData'] = emi
         data['success'] = True
 
-    except (ValueError, TypeError):
-        data['resultData'] = 'Some thing went Wrong'
+    except (ValueError, TypeError) as e:
+        data['resultData'] = str(e)
         data['success'] = False
 
     return JsonResponse(data)
